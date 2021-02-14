@@ -74,7 +74,11 @@ class BlueUtil(ShellLib):
         args.append('--format')
         args.append('json')
         result = super().exec_out(*args, **kwargs)
-        return json.loads(result)
+        try:
+            result = json.loads(result)
+        except:
+            result = None
+        return result
 
     @property
     def power(self):
