@@ -17,6 +17,7 @@ class Config(ConfigBase):
     bluetooth_refresh_rate = 1
     signal_value_visible_on_icon = False
     unlock_delay = 2
+    process_timeout = None
 
     event_weak_signal = ''
     event_connect_status_changed = ''
