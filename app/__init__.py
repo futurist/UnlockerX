@@ -162,11 +162,12 @@ class Application(ApplicationBase, ApplicationView):
                 'device_address', self.lang.description_bind_bluetooth_device, devices)(sender)
 
     def refresh_device_info(self):
-        self.set_menu_title(
-            'view_device_name', self.lang.view_device_name % (self.device_info.name or self.lang.none))
+        if self.device_info is not None:
+            self.set_menu_title(
+                'view_device_name', self.lang.view_device_name % (self.device_info.name or self.lang.none))
 
-        self.set_menu_title(
-            'view_device_address', self.lang.view_device_address % (self.device_info.address or self.lang.none))
+            self.set_menu_title(
+                'view_device_address', self.lang.view_device_address % (self.device_info.address or self.lang.none))
 
         signal_value = self.lang.none
         if self.signal_value is not None:
@@ -380,6 +381,7 @@ class Application(ApplicationBase, ApplicationView):
 
     def callback_weak_signal(self, status: bool, status_prev: bool = None):
         params = locals()
+        params['event'] = 'weak_signal'
 
         Log.append(self.callback_weak_signal, 'Info',
                    'from "%s" to "%s", signal value: %s' % (status_prev, status, self.signal_value))
@@ -395,6 +397,7 @@ class Application(ApplicationBase, ApplicationView):
 
     def callback_connect_status_changed(self, status: bool, status_prev: bool = None):
         params = locals()
+        params['event'] = 'connect_status_changed'
 
         Log.append(self.callback_connect_status_changed, 'Info', 'from "%s" to "%s"' % (status_prev, status))
 
@@ -413,6 +416,7 @@ class Application(ApplicationBase, ApplicationView):
 
     def callback_lid_status_changed(self, status: bool, status_prev: bool = None):
         params = locals()
+        params['event'] = 'lid_status_changed'
 
         Log.append(self.callback_lid_status_changed, 'Info', 'from "%s" to "%s"' % (status_prev, status))
         if status and not status_prev:
@@ -422,6 +426,7 @@ class Application(ApplicationBase, ApplicationView):
 
     def callback_lock_status_changed(self, status: bool, status_prev: bool = None):
         params = locals()
+        params['event'] = 'lock_status_changed'
 
         is_lock = status and not status_prev
         is_unlock = status_prev and not status

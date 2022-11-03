@@ -32,8 +32,8 @@ for lang_type in LANGUAGES.values():
                 translator = google_translate()
             Log.append('Build', 'Translate', 'Using %s' % translator.__class__.__name__)
 
-            lang.translate(translator)
-            lang.save_current_translate()
+            # lang.translate(translator)
+            # lang.save_current_translate()
         add_data(lang._data_path, './app/res/language/translate')
 
 # reset dist directory.
